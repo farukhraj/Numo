@@ -8,18 +8,16 @@ async function generateReport() {
     const day = parseInt(document.getElementById('day').value);
     const month = parseInt(document.getElementById('month').value);
     const year = parseInt(document.getElementById('year').value);
-    const location = document.getElementById('location').value;
+    const location = document.getElementById('location').value; // Location is now optional
     const gender = document.querySelector('input[name="gender"]:checked').value;
     
-    // Optional time inputs
     const hour = document.getElementById('hour').value ? parseInt(document.getElementById('hour').value) : null;
     const minute = document.getElementById('minute').value ? parseInt(document.getElementById('minute').value) : null;
     const ampm = hour ? document.querySelector('input[name="ampm"]:checked').value : 'AM';
 
     // 3. --- VALIDATION ---
-    if (!day || !month || !year || !location) {
-        if (!location) document.getElementById('location-error').textContent = 'Location is required.';
-        if (!day || !month || !year) document.getElementById('date-error').textContent = 'Full date is required.';
+    if (!day || !month || !year) {
+        document.getElementById('date-error').textContent = 'Full date is required.';
         return;
     }
     const testDate = new Date(year, month - 1, day);
@@ -33,7 +31,7 @@ async function generateReport() {
     if (hour && minute !== null) {
         let hour24 = hour;
         if (ampm === 'PM' && hour < 12) hour24 += 12;
-        if (ampm === 'AM' && hour === 12) hour24 = 0; // Midnight case
+        if (ampm === 'AM' && hour === 12) hour24 = 0;
         birthDate = new Date(year, month - 1, day, hour24, minute);
     } else {
         birthDate = new Date(year, month - 1, day);
@@ -71,8 +69,6 @@ async function generateReport() {
     const repeatingNumbers = Object.entries(numberCounts).filter(([_, count]) => count > 1).map(([num, count]) => `${num}(${count}x)`).join(', ');
 
     let yearForKua = year;
-    // Kua number calculation is based on lunar calendar, this is a simplification.
-    // People born in Jan/Feb should check the Chinese New Year for accuracy.
     if (month <= 2 && day < 4) {
         yearForKua = year - 1;
     }
@@ -84,7 +80,7 @@ async function generateReport() {
         kuaNumber = 4 + yearSum;
     }
     kuaNumber = reduceToSingleDigit(kuaNumber);
-    if (kuaNumber === 0) kuaNumber = 9; // Correction for reduction
+    if (kuaNumber === 0) kuaNumber = 9;
     if (kuaNumber === 5) kuaNumber = (gender === 'male') ? 2 : 8;
     
     const finalPresentNumbers = new Set([...presentNumbers, kuaNumber]);
@@ -115,7 +111,7 @@ async function generateReport() {
     });
 
     outputDiv.innerHTML = `
-        <p><b>${formattedDate} in ${location}, is your birth day.</b></p>
+        <p><b>${formattedDate}${location ? ` in ${location}` : ''}, is your birth day.</b></p>
         
         <h2>Your Core Numbers</h2>
         <p><span class="highlight">${psychicNumber}</span> is your <b>Psychic/Driver Number</b> from ${day} &rarr; ${psychicCompound} &rarr; ${psychicNumber}</p>
