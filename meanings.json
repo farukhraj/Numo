@@ -1,0 +1,32 @@
+{
+  "compound": {
+    "11": { "type": "master", "text": "Master number 11: intuition, inspiration, spiritual light." },
+    "22": { "type": "master", "text": "Master number 22: master builder, large-scale achievements." },
+    "33": { "type": "master", "text": "Master number 33: master teacher, service and compassion." },
+    "13": { "type": "karmic", "text": "Karmic 13: hard work, delays, transformation through effort." },
+    "14": { "type": "karmic", "text": "Karmic 14: instability, misuse of freedom, lessons in discipline." },
+    "16": { "type": "karmic", "text": "Karmic 16: pride and downfall, spiritual awakening after loss." },
+    "19": { "type": "karmic", "text": "Karmic 19: lessons of ego, isolation, independence." }
+  },
+  "single": {
+    "1": "Leadership, beginnings, individuality.",
+    "2": "Sensitivity, partnership, diplomacy.",
+    "3": "Creativity, expression, optimism.",
+    "4": "Stability, discipline, work ethic.",
+    "5": "Freedom, adventure, change.",
+    "6": "Responsibility, harmony, nurturing.",
+    "7": "Analysis, spirituality, introspection.",
+    "8": "Power, ambition, material success.",
+    "9": "Compassion, completion, humanitarianism."
+  },
+  "combination": {
+    "1-6": {
+      "stars": 4,
+      "text": "Leadership (1) combines well with responsibility (6). Strong balance of vision and care."
+    },
+    "1-2": {
+      "stars": 2,
+      "text": "Challenging dynamic: independence of 1 clashes with sensitivity of 2."
+    }
+  }
+}
