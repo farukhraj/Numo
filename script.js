@@ -1,14 +1,56 @@
+// --- LOCATION AUTOCOMPLETE LOGIC ---
+const locationInput = document.getElementById('location');
+const autocompleteList = document.getElementById('autocomplete-list');
+let debounceTimer;
+
+locationInput.addEventListener('input', () => {
+    clearTimeout(debounceTimer);
+    const query = locationInput.value;
+    
+    if (query.length < 3) {
+        autocompleteList.innerHTML = '';
+        return;
+    }
+    
+    debounceTimer = setTimeout(() => {
+        fetch(`https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}&limit=5`)
+            .then(response => response.json())
+            .then(data => {
+                autocompleteList.innerHTML = '';
+                data.forEach(place => {
+                    const item = document.createElement('div');
+                    item.className = 'autocomplete-item';
+                    item.textContent = place.display_name;
+                    item.addEventListener('click', () => {
+                        locationInput.value = place.display_name;
+                        autocompleteList.innerHTML = '';
+                    });
+                    autocompleteList.appendChild(item);
+                });
+            })
+            .catch(error => console.error('Error fetching location data:', error));
+    }, 300); // Wait for 300ms after user stops typing
+});
+
+// Close autocomplete when clicking outside
+document.addEventListener('click', function (e) {
+    if (e.target !== locationInput) {
+        autocompleteList.innerHTML = '';
+    }
+});
+
+
+// --- NUMEROLOGY REPORT GENERATION ---
 async function generateReport() {
     // 1. Clear previous errors and report
     document.getElementById('reportOutput').innerHTML = '';
     document.getElementById('date-error').textContent = '';
-    document.getElementById('location-error').textContent = '';
 
     // 2. Get User Input
     const day = parseInt(document.getElementById('day').value);
     const month = parseInt(document.getElementById('month').value);
     const year = parseInt(document.getElementById('year').value);
-    const location = document.getElementById('location').value; // Location is now optional
+    const location = document.getElementById('location').value; 
     const gender = document.querySelector('input[name="gender"]:checked').value;
     
     const hour = document.getElementById('hour').value ? parseInt(document.getElementById('hour').value) : null;
@@ -40,7 +82,7 @@ async function generateReport() {
     // 5. Fetch Meanings Data
     const meanings = await fetch('meanings.json').then(res => res.json());
 
-    // 6. --- CALCULATIONS ---
+    // 6. --- CALCULATIONS (No changes here) ---
     const reduceToSingleDigit = (num) => {
         let sum = num.toString().split('').reduce((acc, digit) => acc + parseInt(digit), 0);
         return (sum > 9 && sum !== 11 && sum !== 22 && sum !== 33) ? reduceToSingleDigit(sum) : sum;
@@ -86,7 +128,7 @@ async function generateReport() {
     const finalPresentNumbers = new Set([...presentNumbers, kuaNumber]);
     const finalMissingNumbers = allPossibleNumbers.filter(n => !finalPresentNumbers.has(n));
 
-    // 7. --- REPORT GENERATION ---
+    // 7. --- REPORT GENERATION (No changes here) ---
     const outputDiv = document.getElementById('reportOutput');
     const getMeaning = (type, number) => meanings[type]?.[number] || { meaning: "Not applicable", weakness: "" };
     const getCompoundMeaning = (number) => meanings.compoundNumbers?.[number] || "Not applicable";
