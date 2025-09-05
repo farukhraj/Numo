@@ -52,4 +52,38 @@
                     <input type="number" id="hour" placeholder="HH" min="1" max="12">
                 </div>
                 <div class="input-group">
-                    <label for="minute">
+                    <label for="minute">Minute (Optional)</label>
+                    <input type="number" id="minute" placeholder="MM" min="0" max="59">
+                </div>
+                <div class="input-group">
+                    <label>Period (Optional)</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="ampm" value="AM" checked> AM</label>
+                        <label><input type="radio" name="ampm" value="PM"> PM</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="input-grid">
+                <div class="input-group">
+                    <label for="location">Location (Optional)</label>
+                    <input type="text" id="location" placeholder="e.g., Dhaka, Bangladesh">
+                    <div id="location-error" class="error-message"></div>
+                </div>
+                <div class="input-group">
+                    <label>Gender (for Kua Number)</label>
+                    <div class="radio-group">
+                        <label><input type="radio" name="gender" value="male" required checked> Male</label>
+                        <label><input type="radio" name="gender" value="female"> Female</label>
+                    </div>
+                </div>
+            </div>
+
+            <button onclick="generateReport()">Generate Report</button>
+        </div>
+        <div id="reportOutput"></div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
