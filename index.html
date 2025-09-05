@@ -1,23 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Numerology Calculator</title>
-  <script defer src="script.js"></script>
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Numo - Numerology Report</title>
+<style>
+  body { font-family: Arial, sans-serif; max-width: 900px; margin: 0 auto; padding: 20px; background: #f8f8f8; color: #333; }
+  h1 { text-align: center; }
+  form { background: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); margin-bottom: 30px; }
+  label { display: block; margin-top: 10px; font-weight: bold; }
+  input, select, button { width: 100%; padding: 8px; margin-top: 5px; border-radius: 5px; border: 1px solid #ccc; box-sizing: border-box; }
+  button { background-color: #007BFF; color: #fff; border: none; cursor: pointer; }
+  button:hover { background-color: #0056b3; }
+  #result { background: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); white-space: pre-wrap; }
+  hr { margin: 20px 0; border: 0; border-top: 1px solid #ccc; }
+</style>
 </head>
-<body class="bg-gray-100 flex items-center justify-center min-h-screen">
-  <div class="bg-white shadow-lg rounded-xl p-6 w-full max-w-md">
-    <h1 class="text-2xl font-bold text-center mb-4">Numerology Calculator</h1>
-    
-    <label class="block mb-2 font-medium">Enter Date of Birth</label>
-    <input type="date" id="dob" class="w-full border p-2 rounded mb-4">
-    
-    <button onclick="calculate()" class="w-full bg-blue-600 text-white p-2 rounded hover:bg-blue-700">
-      Calculate
-    </button>
+<body>
 
-    <div id="result" class="mt-6"></div>
-  </div>
+<h1>Numo - Numerology Report</h1>
+
+<form id="dobForm">
+  <label>Date of Birth:</label>
+  <input type="date" id="dob" required>
+
+  <label>Time of Birth:</label>
+  <input type="time" id="time" required>
+
+  <label>Gender:</label>
+  <select id="gender" required>
+    <option value="">Select</option>
+    <option value="male">Male</option>
+    <option value="female">Female</option>
+  </select>
+
+  <label>Place of Birth:</label>
+  <input type="text" id="place" placeholder="City, Country" required>
+
+  <button type="button" onclick="calculate()">Get Numerology Report</button>
+</form>
+
+<div id="result"></div>
+
+<script src="script.js"></script>
 </body>
 </html>

@@ -1,149 +1,139 @@
 // ======= Utility Functions =======
 
-// Reduction chain for a number (Cheiro method)
+// Reduction chain (Cheiro)
 function getReductionChain(num) {
-  let chain = [num];
-  while (num > 9 && ![11, 22, 33].includes(num)) {
-    num = num.toString().split("").reduce((a, b) => a + Number(b), 0);
-    chain.push(num);
-  }
-  return chain; // e.g., [19, 10, 1]
+    let chain = [num];
+    while (num > 9 && ![11,22,33].includes(num)) {
+        num = num.toString().split("").reduce((a,b)=>a+Number(b),0);
+        chain.push(num);
+    }
+    return chain;
 }
 
-// Reduce to single digit (final)
+// Reduce to single digit
 function reduceToSingleDigit(num) {
-  while (num > 9 && ![11, 22, 33].includes(num)) {
-    num = num.toString().split("").reduce((a, b) => a + Number(b), 0);
-  }
-  return num;
+    while (num > 9 && ![11,22,33].includes(num)) {
+        num = num.toString().split("").reduce((a,b)=>a+Number(b),0);
+    }
+    return num;
 }
 
-// Element mapping (Chaldean/Chinese)
+// Element mapping
 function getElement(num) {
-  if ([1, 2].includes(num)) return "Wood";
-  if ([3, 4].includes(num)) return "Fire";
-  if ([5, 6].includes(num)) return "Earth";
-  if ([7, 8].includes(num)) return "Metal";
-  if (num === 9) return "Water";
-  return "Unknown";
+    if ([1,2].includes(num)) return "Wood";
+    if ([3,4].includes(num)) return "Fire";
+    if ([5,6].includes(num)) return "Earth";
+    if ([7,8].includes(num)) return "Metal";
+    if (num === 9) return "Water";
+    return "Unknown";
 }
 
-// Format date nicely
+// Format date
 function formatDate(dob) {
-  const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-  return dob.toLocaleDateString('en-US', options);
+    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    return dob.toLocaleDateString('en-US', options);
 }
 
-// Load meanings.json
-async function loadMeanings() {
-  const response = await fetch("meanings.json");
-  return await response.json();
-}
-
-// Count repeating numbers and missing numbers
+// Count repeating & missing numbers
 function analyzeDigits(digits) {
-  let counts = {};
-  for (let d of digits) counts[d] = (counts[d] || 0) + 1;
-  let missing = [];
-  for (let i = 1; i <= 9; i++) if (!counts[i]) missing.push(i);
-  let repeating = Object.entries(counts).filter(([k,v]) => v > 1).map(([k,v]) => `${k} (${v}x)`);
-  return { counts, missing, repeating };
+    let counts = {};
+    for (let d of digits) counts[d] = (counts[d] || 0) + 1;
+    let missing = [];
+    for (let i=1;i<=9;i++) if (!counts[i]) missing.push(i);
+    let repeating = Object.entries(counts).filter(([k,v])=>v>1).map(([k,v])=>`${k} (${v}x)`);
+    return { counts, missing, repeating };
 }
 
 // Placeholder for people names
-function getPeopleNames(num, count = 10) {
-  let names = [];
-  for (let i = 1; i <= count; i++) names.push(`Person${i}`);
-  return names.join(", ");
+function getPeopleNames(num,count=10) {
+    let names = [];
+    for(let i=1;i<=count;i++) names.push(`Person${i}`);
+    return names.join(", ");
+}
+
+// Load meanings.json dynamically
+async function loadMeanings() {
+    const response = await fetch("meanings.json");
+    return await response.json();
 }
 
 // ======= Main Calculation =======
 async function calculate() {
-  const dobInput = document.getElementById("dob").value;
-  if (!dobInput) { alert("Please enter your date of birth"); return; }
-  
-  const dob = new Date(dobInput);
-  const day = dob.getDate();
-  const month = dob.getMonth() + 1;
-  const year = dob.getFullYear();
+    const dobInput = document.getElementById("dob").value;
+    const timeInput = document.getElementById("time").value;
+    const gender = document.getElementById("gender").value;
+    const place = document.getElementById("place").value;
 
-  // All digits of DOB
-  const digitsArray = (day.toString() + month.toString() + year.toString()).split("").map(Number);
+    if(!dobInput || !timeInput || !gender || !place) {
+        alert("Please fill all fields");
+        return;
+    }
 
-  // ===== Core Numbers =====
-  const driverChain = getReductionChain(day);
-  const driverCompound = driverChain[0];
-  const driverSingle = driverChain[driverChain.length - 1];
+    const dob = new Date(dobInput);
+    const [hours, minutes] = timeInput.split(":").map(Number);
+    dob.setHours(hours, minutes);
 
-  const sumAllDigits = digitsArray.reduce((a,b)=>a+b,0);
-  const conductorChain = getReductionChain(sumAllDigits);
-  const conductorCompound = conductorChain[0];
-  const conductorSingle = conductorChain[conductorChain.length-1];
+    const day = dob.getDate();
+    const month = dob.getMonth()+1;
+    const year = dob.getFullYear();
 
-  const { counts, missing, repeating } = analyzeDigits([...digitsArray, conductorSingle]);
+    // All digits of DOB
+    const digitsArray = (day.toString().padStart(2,'0') + month.toString().padStart(2,'0') + year.toString()).split("").map(Number);
 
-  // ===== Other Important Numbers (AstroSeek-style placeholders) =====
-  const kuaNumber = reduceToSingleDigit(driverSingle + conductorSingle);
-  const sunSignNum = reduceToSingleDigit(conductorSingle);
-  const moonSignNum = reduceToSingleDigit(day);
-  const risingNum = reduceToSingleDigit(month);
+    // Core Numbers
+    const driverChain = getReductionChain(day);
+    const driverCompound = driverChain[0];
+    const driverSingle = driverChain[driverChain.length-1];
 
-  const meanings = await loadMeanings();
+    const sumAllDigits = digitsArray.reduce((a,b)=>a+b,0);
+    const conductorChain = getReductionChain(sumAllDigits);
+    const conductorCompound = conductorChain[0];
+    const conductorSingle = conductorChain[conductorChain.length-1];
 
-  // ===== HTML Output =====
-  let html = "";
+    const { counts, missing, repeating } = analyzeDigits([...digitsArray, conductorSingle]);
 
-  // --- Birth Info ---
-  html += `<p>${formatDate(dob)} is your birth day.</p>`;
-  html += `<hr>`;
-  
-  // --- Core Numbers ---
-  html += `<h2>Your Core Numbers</h2>`;
-  html += `<p>${driverSingle} is your Psychic/Driver Number from ${driverChain.join(" → ")}</p>`;
-  html += `<p>${conductorSingle} is your Destiny/Conductor Number from ${digitsArray.join("")} → ${conductorChain.join(" → ")}</p>`;
-  html += `<p>You have digits: ${Object.keys(counts).join(", ")} (from core + conductor)</p>`;
-  if (repeating.length > 0) html += `<p>Repeat Numbers: ${repeating.join(", ")}</p>`;
-  html += `<p>Missing Numbers: ${missing.join(", ")}</p>`;
+    // Load meanings
+    const meanings = await loadMeanings();
 
-  // --- Other Important Numbers ---
-  html += `<hr><h2>Other important numbers you have:</h2>`;
-  html += `<p>${kuaNumber} as KUA/Angel number</p>`;
-  html += `<p>${sunSignNum} from Sun Sign</p>`;
-  html += `<p>${moonSignNum} from Moon Sign</p>`;
-  html += `<p>${risingNum} from Rising Sun/Ascendant</p>`;
-  html += `<p>Still, the Missing Numbers are: ${missing.join(", ")}</p>`;
-  html += `<hr>`;
+    // Build report
+    let report = '';
+    report += `${formatDate(dob)}, at ${timeInput} in ${place}, is your birth day.\n`;
+    report += '_______________________________________________________________________________________\n\n';
+    report += `Your Core Numbers\n`;
+    report += `${driverSingle} is your Psychic/Driver Number from ${driverChain.join(' → ')}\n`;
+    report += `${conductorSingle} is your Destiny/Conductor Number from ${digitsArray.join('')} → ${conductorChain.join(' → ')}\n`;
+    report += `You have numbers: ${Object.keys(counts).join(', ')}\n`;
+    report += `Repeat Numbers: ${repeating.join(', ')}\n`;
+    report += `Missing Numbers: ${missing.join(', ')}\n`;
+    report += '__________________________________________________________________________________________\n\n';
 
-  // --- Driver / Psychic Section ---
-  html += `<h2>${driverSingle} as Your Psychic/Driver Number</h2>`;
-  html += `<p>Compound: ${driverCompound} → Single: ${driverSingle}</p>`;
-  html += `<p>Element: ${getElement(driverSingle)}</p>`;
-  html += `<p>Karmic: ${[13,14,16,19].includes(driverCompound) ? "Yes":"No"}, Master Number: ${[11,22,33].includes(driverCompound) ? "Yes":"No"}</p>`;
-  
-  html += `<p>Compound Number meaning (${driverCompound}): ${meanings.compound[driverCompound]?.text || "Not applicable"}</p>`;
-  html += `<p>Karmic Number meaning (${driverCompound}): ${meanings.karmic[driverCompound]?.text || "Not applicable"}</p>`;
-  html += `<p>Master Number meaning (${driverCompound}): ${meanings.master[driverCompound]?.text || "Not applicable"}</p>`;
-  html += `<p>Single Number meaning (${driverSingle}): ${meanings.single[driverSingle] || "Not applicable"}</p>`;
-  
-  html += `<p>Weakness could be: (Derived from compound, master, karmic, single lessons)</p>`;
-  html += `<p>Repeating (${counts[driverSingle] || 1}x) times Your Psychic/Driver Number exploit</p>`;
-  html += `<p>People Born in ${driverCompound} are: ${getPeopleNames(driverCompound)}</p>`;
-  html += `<hr>`;
+    // Driver Number Details
+    report += `${driverSingle} as Your Psychic/Driver Number\n`;
+    report += `Compound: ${driverCompound} → Single: ${driverSingle}\n`;
+    report += `Element: ${getElement(driverSingle)}\n`;
+    let driverType = meanings.compound[driverCompound] ? meanings.compound[driverCompound].type : "regular";
+    report += `Karmic: ${driverType==='karmic'?'Yes':'No'}, Master Number: ${driverType==='master'?'Yes':'No'}\n`;
+    report += `Compound Number meaning (${driverCompound}): ${meanings.compound[driverCompound] ? meanings.compound[driverCompound].text : "Not applicable"}\n`;
+    if(driverType==='karmic') report += `Karmic Number Meaning (${driverCompound}): ${meanings.karmic[driverCompound].text}\n`;
+    if(driverType==='master') report += `Master Number Meaning (${driverCompound}): ${meanings.master[driverCompound].text}\n`;
+    report += `Single Number meaning (${driverSingle}): ${meanings.single[driverSingle]}\n`;
+    report += `Weaknesses / Lessons: Not implemented yet\n`;
+    report += `People Born in ${driverCompound}: ${getPeopleNames(driverCompound)}\n`;
+    report += '__________________________________________________________________________________________\n\n';
 
-  // --- Conductor / Destiny Section ---
-  html += `<h2>${conductorSingle} as Your Destiny/Conductor Number</h2>`;
-  html += `<p>${digitsArray.join("")} → Compound: ${conductorCompound} → Single: ${conductorSingle}</p>`;
-  html += `<p>Element: ${getElement(conductorSingle)}</p>`;
-  html += `<p>Karmic: ${[13,14,16,19].includes(conductorCompound) ? "Yes":"No"}, Master Number: ${[11,22,33].includes(conductorCompound) ? "Yes":"No"}</p>`;
+    // Conductor Number Details
+    report += `${conductorSingle} as Your Destiny/Conductor Number\n`;
+    report += `Compound: ${conductorCompound} → Single: ${conductorSingle}\n`;
+    report += `Element: ${getElement(conductorSingle)}\n`;
+    let conductorType = meanings.compound[conductorCompound] ? meanings.compound[conductorCompound].type : "regular";
+    report += `Karmic: ${conductorType==='karmic'?'Yes':'No'}, Master Number: ${conductorType==='master'?'Yes':'No'}\n`;
+    report += `Compound Number meaning (${conductorCompound}): ${meanings.compound[conductorCompound] ? meanings.compound[conductorCompound].text : "Not applicable"}\n`;
+    if(conductorType==='karmic') report += `Karmic Number Meaning (${conductorCompound}): ${meanings.karmic[conductorCompound].text}\n`;
+    if(conductorType==='master') report += `Master Number Meaning (${conductorCompound}): ${meanings.master[conductorCompound].text}\n`;
+    report += `Single Number meaning (${conductorSingle}): ${meanings.single[conductorSingle]}\n`;
+    report += `Weaknesses / Lessons: Not implemented yet\n`;
+    report += `People have Destiny/Conductor in ${conductorCompound}/${conductorSingle}: ${getPeopleNames(conductorCompound)}\n`;
+    report += '__________________________________________________________________________________________\n\n';
 
-  html += `<p>Compound Number meaning (${conductorCompound}): ${meanings.compound[conductorCompound]?.text || "Not applicable"}</p>`;
-  html += `<p>Karmic Number meaning (${conductorCompound}): ${meanings.karmic[conductorCompound]?.text || "Not applicable"}</p>`;
-  html += `<p>Master Number meaning (${conductorCompound}): ${meanings.master[conductorCompound]?.text || "Not applicable"}</p>`;
-  html += `<p>Single Number meaning (${conductorSingle}): ${meanings.single[conductorSingle] || "Not applicable"}</p>`;
-
-  html += `<p>Weakness could be: (Derived from compound, master, karmic, single lessons)</p>`;
-  html += `<p>Repeating (${counts[conductorSingle] || 1}x) times Your Destiny/Conductor Number exploit</p>`;
-  html += `<p>People have Destiny/Conductor in ${conductorCompound}/${conductorSingle} are: ${getPeopleNames(conductorCompound)}</p>`;
-  
-  document.getElementById("result").innerHTML = html;
+    document.getElementById("result").textContent = report;
 }

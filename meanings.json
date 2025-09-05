@@ -1,16 +1,15 @@
 {
   "single": {
-    "1": "Independent, ambitious, self-reliant, a natural leader.",
-    "2": "Diplomatic, sensitive, cooperative, empathetic.",
-    "3": "Creative, expressive, optimistic, sociable.",
-    "4": "Practical, disciplined, organized, reliable.",
-    "5": "Adventurous, adaptable, freedom-loving, versatile.",
-    "6": "Responsible, nurturing, protective, harmonious.",
-    "7": "Analytical, introspective, spiritual, thoughtful.",
-    "8": "Ambitious, material success-oriented, authoritative.",
-    "9": "Compassionate, humanitarian, artistic, idealistic."
+    "1": "Leadership, independence, self-confidence, ambition, originality.",
+    "2": "Cooperation, diplomacy, sensitivity, intuition, partnership.",
+    "3": "Creativity, expression, sociability, optimism, enthusiasm.",
+    "4": "Practicality, stability, discipline, hard work, organization.",
+    "5": "Freedom, adaptability, adventure, curiosity, versatility.",
+    "6": "Responsibility, harmony, family, care, nurturing.",
+    "7": "Analysis, introspection, spirituality, wisdom, research.",
+    "8": "Power, success, authority, material achievement, management.",
+    "9": "Compassion, humanitarianism, creativity, tolerance, idealism."
   },
-  {
   "compound": {
     "11": {"text":"Master number of inspiration and intuition; visionaries, spiritual awareness.","type":"master"},
     "12": {"text":"Indicates energy for discipline and service, but may face challenges in focus.","type":"regular"},
@@ -38,18 +37,16 @@
     "34": {"text":"Practical creativity; success through discipline and learning.","type":"regular"},
     "35": {"text":"Adventure, freedom, versatility; spiritual lesson in responsibility.","type":"regular"},
     "36": {"text":"Creativity, optimism, artistic expression; lessons in balance and self-discipline.","type":"regular"}
-  }
-}
-
+  },
   "karmic": {
-    "13": {"text":"Requires transformation; breaking old habits and structures."},
-    "14": {"text":"Teaches responsibility and balance; avoid escapism."},
-    "16": {"text":"Overcome ego and pride; cultivate humility."},
-    "19": {"text":"Learn independence and self-reliance; avoid manipulation."}
+    "13": {"text":"Transformation, breaking old habits, rebirth. Life lessons in discipline and change."},
+    "14": {"text":"Balancing freedom and responsibility; lessons in moderation and self-control."},
+    "16": {"text":"Ego challenges, humility, spiritual awakening; lessons in self-awareness."},
+    "19": {"text":"Self-reliance, independence, learning to lead oneself; lessons in responsibility and resilience."}
   },
   "master": {
-    "11": {"text":"Master of inspiration and intuitive insight; spiritual awareness."},
-    "22": {"text":"Master builder; manifests large-scale goals with discipline."},
-    "33": {"text":"Master teacher and healer; emphasizes service and compassion."}
+    "11": {"text":"Intuition, inspiration, visionary leadership, spiritual awareness."},
+    "22": {"text":"Master builder, large-scale manifestation, practical idealism, leadership."},
+    "33": {"text":"Master teacher, healer, compassion, service, spiritual influence."}
   }
 }
