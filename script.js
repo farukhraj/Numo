@@ -1,4 +1,29 @@
-function calculate() {
+// Utility: get reduction chain
+function getReductionChain(num) {
+  let chain = [num];
+  while (num > 9 && num !== 11 && num !== 22 && num !== 33) {
+    num = num.toString().split("").reduce((a, b) => a + Number(b), 0);
+    chain.push(num);
+  }
+  return chain; // e.g., [19, 10, 1]
+}
+
+// Single digit reduction (last number in chain)
+function reduceToSingleDigit(num) {
+  while (num > 9 && num !== 11 && num !== 22 && num !== 33) {
+    num = num.toString().split("").reduce((a, b) => a + Number(b), 0);
+  }
+  return num;
+}
+
+// Load meanings.json
+async function loadMeanings() {
+  const response = await fetch("meanings.json");
+  return await response.json();
+}
+
+// Main calculation
+async function calculate() {
   const dobInput = document.getElementById("dob").value;
   if (!dobInput) {
     alert("Please enter your date of birth");
@@ -10,46 +35,34 @@ function calculate() {
   const month = dob.getMonth() + 1;
   const year = dob.getFullYear();
 
-  // Driver (Psychic) number
-  const driverCompound = reduceNumber(day);
-  const driverSingle = reduceToSingleDigit(driverCompound);
+  // Driver (Psychic)
+  const driverChain = getReductionChain(day);
+  const driverCompound = driverChain[0];
+  const driverSingle = driverChain[driverChain.length - 1];
 
-  // Conductor (Destiny) number
-  const conductorCompound = reduceNumber(day + month + year);
-  const conductorSingle = reduceToSingleDigit(conductorCompound);
+  // Conductor (Destiny)
+  const digitsArray = (day.toString() + month.toString() + year.toString()).split("").map(Number);
+  const sumAllDigits = digitsArray.reduce((a, b) => a + b, 0);
+  const conductorChain = getReductionChain(sumAllDigits);
+  const conductorCompound = conductorChain[0];
+  const conductorSingle = conductorChain[conductorChain.length - 1];
 
   // Lo Shu Grid
-  const allDigits = (day.toString() + month.toString() + year.toString()).split("").map(Number);
   let grid = {1:0,2:0,3:0,4:0,5:0,6:0,7:0,8:0,9:0};
-  allDigits.forEach(d => { if (grid[d] !== undefined) grid[d]++; });
+  digitsArray.forEach(d => { if (grid[d] !== undefined) grid[d]++; });
   const missing = Object.keys(grid).filter(num => grid[num] === 0);
 
   document.getElementById("result").innerHTML = `
     <h2 class="text-xl font-bold mt-4">Section 1: Core Numbers</h2>
-    <p><strong>Driver:</strong> ${driverCompound} → ${driverSingle}</p>
-    <p><strong>Conductor:</strong> ${conductorCompound} → ${conductorSingle}</p>
+    <p><strong>Driver Chain:</strong> ${driverChain.join(" → ")}</p>
+    <p><strong>Conductor Chain:</strong> ${conductorChain.join(" → ")}</p>
     <p><strong>Missing Numbers:</strong> ${missing.join(", ") || "None"}</p>
   `;
 
   showInterpretations(driverCompound, driverSingle, conductorCompound, conductorSingle);
 }
 
-function reduceNumber(num) {
-  return num; // keep compound first, don’t reduce immediately
-}
-
-function reduceToSingleDigit(num) {
-  while (num > 9 && num !== 11 && num !== 22 && num !== 33) {
-    num = num.toString().split("").reduce((a, b) => a + Number(b), 0);
-  }
-  return num;
-}
-
-async function loadMeanings() {
-  const response = await fetch("meanings.json");
-  return await response.json();
-}
-
+// Show interpretations
 async function showInterpretations(driverCompound, driverSingle, conductorCompound, conductorSingle) {
   const meanings = await loadMeanings();
   let output = "";
