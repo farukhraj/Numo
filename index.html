@@ -5,88 +5,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Numerology Report Generator</title>
     <style>
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background-color: #f0f2f5;
-            color: #1c1e21;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
-            padding: 20px;
-            box-sizing: border-box;
-        }
-        #container {
-            background-color: #fff;
-            padding: 25px;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            max-width: 800px;
-        }
-        h1 {
-            text-align: center;
-            color: #333;
-            border-bottom: 2px solid #007bff;
-            padding-bottom: 10px;
-            margin-bottom: 20px;
-        }
-        .input-group {
-            margin-bottom: 15px;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-        .input-group label {
-            font-weight: bold;
-            flex-basis: 100%;
-            margin-bottom: 5px;
-        }
-        .input-group input, .input-group select {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box;
-        }
-        button {
-            width: 100%;
-            padding: 12px;
-            background-color: #007bff;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            font-size: 16px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-        button:hover {
-            background-color: #0056b3;
-        }
-        #reportOutput {
-            margin-top: 25px;
-            padding-top: 20px;
-            border-top: 1px solid #ddd;
-        }
-        h2 {
-            color: #0056b3;
-        }
-        hr {
-            border: 0;
-            height: 1px;
-            background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
-            margin: 30px 0;
-        }
-        .section-title {
-            font-size: 1.5em;
-            font-weight: bold;
-            margin-bottom: 15px;
-        }
-        .highlight {
-            font-weight: bold;
-            color: #007bff;
-        }
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background-color: #f0f2f5; color: #1c1e21; display: flex; justify-content: center; align-items: flex-start; min-height: 100vh; margin: 0; padding: 20px; box-sizing: border-box; }
+        #container { background-color: #fff; padding: 25px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); width: 100%; max-width: 800px; }
+        h1 { text-align: center; color: #333; border-bottom: 2px solid #007bff; padding-bottom: 10px; margin-bottom: 20px; }
+        .input-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); gap: 15px; margin-bottom: 15px; }
+        .input-group { display: flex; flex-direction: column; }
+        .input-group label { font-weight: bold; margin-bottom: 5px; font-size: 0.9em; }
+        .input-group input[type="number"], .input-group input[type="text"] { padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; width: 100%; }
+        .radio-group { margin-top: 10px; }
+        .radio-group label { font-weight: normal; margin-right: 15px; }
+        .error-message { color: #d93025; font-size: 0.8em; height: 1em; margin-top: 3px; }
+        button { width: 100%; padding: 12px; background-color: #007bff; color: white; border: none; border-radius: 4px; font-size: 16px; cursor: pointer; transition: background-color 0.3s ease; margin-top: 10px; }
+        button:hover { background-color: #0056b3; }
+        #reportOutput { margin-top: 25px; padding-top: 20px; border-top: 1px solid #ddd; }
+        h2 { color: #0056b3; }
+        hr { border: 0; height: 1px; background-image: linear-gradient(to right, rgba(0,0,0,0), rgba(0,0,0,0.75), rgba(0,0,0,0)); margin: 30px 0; }
+        .section-title { font-size: 1.5em; font-weight: bold; margin-bottom: 15px; }
+        .highlight { font-weight: bold; color: #007bff; }
+        .disclaimer { font-size: 0.8em; color: #666; text-align: center; margin-top: 20px; }
     </style>
 </head>
 <body>
@@ -94,26 +30,26 @@
     <div id="container">
         <h1>Numerology Report Generator</h1>
         <div id="input-form">
-            <div class="input-group">
-                <label for="birthdate">Date of Birth</label>
-                <input type="datetime-local" id="birthdate" name="birthdate" required>
+            <div class="input-grid">
+                <div class="input-group">
+                    <label for="day">Day</label>
+                    <input type="number" id="day" placeholder="DD" min="1" max="31" required>
+                </div>
+                <div class="input-group">
+                    <label for="month">Month</label>
+                    <input type="number" id="month" placeholder="MM" min="1" max="12" required>
+                </div>
+                <div class="input-group">
+                    <label for="year">Year</label>
+                    <input type="number" id="year" placeholder="YYYY" min="1900" max="2100" required>
+                </div>
             </div>
-            <div class="input-group">
-                <label for="location">Location</label>
-                <input type="text" id="location" name="location" placeholder="e.g., Rajshahi, Bangladesh" required>
-            </div>
-             <div class="input-group">
-                <label for="gender">Gender (for Kua Number)</label>
-                <select id="gender" name="gender">
-                    <option value="male">Male</option>
-                    <option value="female">Female</option>
-                </select>
-            </div>
-            <button onclick="generateReport()">Generate Report</button>
-        </div>
-        <div id="reportOutput"></div>
-    </div>
+            <div id="date-error" class="error-message"></div>
 
-    <script src="script.js"></script>
-</body>
-</html>
+            <div class="input-grid">
+                 <div class="input-group">
+                    <label for="hour">Hour (Optional)</label>
+                    <input type="number" id="hour" placeholder="HH" min="1" max="12">
+                </div>
+                <div class="input-group">
+                    <label for="minute">
