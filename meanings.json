@@ -1,48 +1,47 @@
 {
   "singleNumbers": {
-    "1": {
-      "meaning": "Represents leadership, independence, and pioneering spirit. It is the number of new beginnings and action. People with this number are often ambitious, determined, and have a strong will to succeed.",
-      "weakness": "Can be overly aggressive, dominant, or egotistical. May struggle with being alone or feeling unsupported."
-    },
-    "6": {
-      "meaning": "Signifies responsibility, nurturing, and domesticity. It is the number of harmony, love, and family. These individuals are often caring, protective, and seek to create a beautiful and stable environment.",
-      "weakness": "Can become self-righteous, meddling, or a martyr. May take on too many burdens and neglect their own needs."
-    }
+    "1": { "meaning": "Leadership, independence, pioneering spirit. Number of new beginnings and action. Ambitious, determined, and strong-willed.", "weakness": "Can be overly aggressive, dominant, or egotistical. May struggle with being alone." },
+    "2": { "meaning": "Cooperation, diplomacy, and sensitivity. Represents partnerships and harmony. Gentle, tactful, and supportive individuals.", "weakness": "Can be indecisive, overly sensitive, and dependent on others." },
+    "3": { "meaning": "Creativity, communication, and optimism. The number of self-expression and joy. Sociable, artistic, and charismatic.", "weakness": "Can be scattered, superficial, and prone to exaggeration." },
+    "4": { "meaning": "Stability, discipline, and hard work. Represents order, practicality, and dependability. Methodical, trustworthy, and grounded.", "weakness": "Can be rigid, stubborn, and unimaginative. Prone to being a workaholic." },
+    "5": { "meaning": "Freedom, adventure, and versatility. The number of change and exploration. Adaptable, curious, and freedom-loving.", "weakness": "Can be restless, irresponsible, and indulgent." },
+    "6": { "meaning": "Responsibility, nurturing, and domesticity. The number of harmony, love, and family. Caring, protective, and seeks stability.", "weakness": "Can become self-righteous, meddling, or a martyr." },
+    "7": { "meaning": "Analysis, intuition, and spirituality. The number of the seeker and thinker. Introspective, wise, and philosophical.", "weakness": "Can be withdrawn, secretive, and skeptical." },
+    "8": { "meaning": "Ambition, power, and material success. The number of authority and abundance. Goal-oriented, efficient, and a natural leader.", "weakness": "Can be materialistic, power-hungry, and controlling." },
+    "9": { "meaning": "Humanitarianism, compassion, and completion. The number of selfless service. Idealistic, tolerant, and a global consciousness.", "weakness": "Can be overly emotional, impractical, and financially careless." }
   },
   "compoundNumbers": {
-    "19": "Known as the 'Prince of Heaven'. This number is highly fortunate, promising happiness, success, and fulfillment. It indicates victory over all difficulties and is a number of great power and potential.",
-    "33": "This is a Master Number. See Master Number meaning."
+    "10": "The 'Wheel of Fortune'. Represents honor, faith, and self-confidence. A number of rise and fall; success is likely if plans are carried out.",
+    "19": "The 'Prince of Heaven'. Highly fortunate, promising happiness, success, and fulfillment over difficulties.",
+    "22": "A Master Number. See Master Number meaning.",
+    "33": "A Master Number. See Master Number meaning."
   },
   "masterNumbers": {
-    "33": {
-        "meaning": "The 'Master Teacher'. This number represents spiritual uplifting, selfless service, and compassion on a global scale. It combines the energies of 11 (intuition) and 22 (master builder) to inspire and heal humankind. It is the number of a spiritual guide.",
-        "weakness": "Can be overly idealistic, stressed by the needs of others, and may struggle to apply their high ideals in the practical world."
-    }
+    "22": { "meaning": "The 'Master Builder'. Possesses the ability to turn dreams into reality. Combines the intuition of the 2 with the practicality of the 4. A number of great potential for achievement on a grand scale.", "weakness": "Can feel overwhelmed by their own potential, leading to stress or inaction." },
+    "33": { "meaning": "The 'Master Teacher'. Represents spiritual uplifting, selfless service, and compassion. It inspires and heals humankind.", "weakness": "Can be overly idealistic and stressed by the needs of others." }
   },
   "karmicNumbers": {
-    "19": {
-        "meaning": "A Karmic Debt number. It indicates that in a past life, power was abused. The lesson in this life is to learn to stand on your own two feet, use your leadership abilities wisely, and serve others without becoming dictatorial."
-    }
+    "13": { "meaning": "A Karmic Debt for laziness in a past life. The lesson is to work hard and overcome obstacles through sustained effort." },
+    "14": { "meaning": "A Karmic Debt for abuse of freedom. The lesson is to maintain self-control, discipline, and stability in the face of constant change." },
+    "16": { "meaning": "A Karmic Debt related to illicit love affairs. The lesson involves humility and rebuilding one's life on a higher spiritual foundation." },
+    "19": { "meaning": "A Karmic Debt for abuse of power. The lesson is to learn to stand on your own and serve others without becoming dictatorial." }
   },
-  "elements": {
-    "1": "Fire",
-    "2": "Earth",
-    "3": "Wood",
-    "4": "Wood",
-    "5": "Earth",
-    "6": "Metal",
-    "7": "Metal",
-    "8": "Earth",
-    "9": "Fire"
+  "kuaNumbers": {
+      "1": { "meaning": "Direction: North. Element: Water. Represents a contemplative and independent nature." },
+      "2": { "meaning": "Direction: Southwest. Element: Earth. Represents a receptive, caring, and motherly nature." },
+      "3": { "meaning": "Direction: East. Element: Wood. Represents growth, action, and an outspoken nature." },
+      "4": { "meaning": "Direction: Southeast. Element: Wood. Represents a gentle, thoughtful, and creative nature." },
+      "6": { "meaning": "Direction: Northwest. Element: Metal. Represents a strong, leadership-oriented, and fatherly nature." },
+      "7": { "meaning": "Direction: West. Element: Metal. Represents joy, communication, and a sociable nature." },
+      "8": { "meaning": "Direction: Northeast. Element: Earth. Represents stability, stillness, and a contemplative nature." },
+      "9": { "meaning": "Direction: South. Element: Fire. Represents passion, fame, and a vibrant nature." }
   },
   "psychicPeople": {
-    "19": [
-        "Indira Gandhi", "Ratan Tata", "Zeena Aman", "Bill Clinton", "Coco Chanel", "Matthew McConaughey", "Jodie Foster", "Isaac Newton", "Larry King", "Savitribai Phule"
-    ]
+    "19": ["Indira Gandhi", "Ratan Tata", "Bill Clinton", "Coco Chanel", "Matthew McConaughey", "Jodie Foster", "Isaac Newton", "Larry King"]
   },
   "destinyPeople": {
-    "33/6": [
-        "Albert Einstein", "Thomas Edison", "Stephen King", "Meryl Streep", "Robert De Niro", "John Lennon", "Salma Hayek", "Francis Ford Coppola", "Ayatollah Khomeini", "Heather Locklear"
-    ]
+    "6": ["Michael Jackson", "Richard Nixon", "Eleanor Roosevelt", "John Denver", "Christopher Reeve", "George W. Bush"],
+    "22/4": ["Paul McCartney", "Richard Branson", "Dalai Lama XIV", "Bill Gates", "Oprah Winfrey", "Clint Eastwood"],
+    "33/6": ["Albert Einstein", "Thomas Edison", "Stephen King", "Meryl Streep", "Robert De Niro", "John Lennon", "Salma Hayek"]
   }
 }
